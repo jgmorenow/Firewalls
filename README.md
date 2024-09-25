@@ -47,7 +47,12 @@ Recent Ubuntu systems have iptables installed by default but we can always check
 <img src=" sudo apt install iptables-persistent " height="25%" width="75%" />
 </p>
 
+<b>An installation wizard will take over the terminal window and I'll be shown the file in which the server will save the firewall rules and informed that rules from this file will load ay system startup.
 
+I'll also need to save any changes to firewall rules manually beyond this installation process, so I will select YES to save any current firewall rules. 
+
+If I don't install this component, I will have to reconfigure my firewall every time I restart my server.
+</b>
 
 
 
