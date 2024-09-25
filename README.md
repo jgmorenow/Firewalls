@@ -32,25 +32,24 @@ In this project, I will use two firewall solutions: iptables and pfSense. Iptabl
 Recent Ubuntu systems have iptables installed by default but we can always check by running the following command:
 </b>
 <p align="center">
-<img src=" sudo iptables -V command picture goes here" height="25%" width="75%" />
+<img src="https://i.imgur.com/TXg1Ou2.png" height="25%" width="75%" />
 </p>
 
-<b>If iptables is installed, the server should return the version information. If iptables is not installed, you'll receive an error, indicating you'll need to make the install</b>
+<b>If iptables is installed, the server should return the version information. If iptables is not installed, you'll receive an error, indicating you'll need to make the install.</b>
+
+
+<b>Next, I'll install iptables-persistent, a tool that allows you to save your firewall configurations and automatically reload them after a reboot of the server.</b>
 
 <p align="center">
-<img src=" sudo apt install iptables here " height="25%" width="75%" />
-</p>
-
-<b>Next, I'll install iptables-persistent, a tool that allows you to save your firewall configurations and automatically reload them after a reboot of the server</b>
-
-<p align="center">
-<img src=" sudo apt install iptables-persistent " height="25%" width="75%" />
+<img src="https://i.imgur.com/oXtvCAQ.png" height="25%" width="75%" />
 </p>
 
 <b>An installation wizard will take over the terminal window and I'll be shown the file in which the server will save the firewall rules and informed that rules from this file will load ay system startup.
 
 I'll also need to save any changes to firewall rules manually beyond this installation process, so I will select YES to save any current firewall rules. 
-
+<p align="center">
+<img src="https://i.imgur.com/GXioi9I.png" height="25%" width="75%" />
+</p>
 If I don't install this component, I will have to reconfigure my firewall every time I restart my server.
 </b>
 
