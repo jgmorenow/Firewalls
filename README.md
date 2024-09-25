@@ -76,4 +76,34 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 <b>The iptables firewall offer multiple matching modules, and you can specify the module to use with the -m argument. In the example provided, conntrack, a tool that allows stateful packet inspection, is used. Some other tools include connbytes, which creates rules based on the amount of traffic transferred, and connrate, which matches *on the transfer rate of the traffic.</b>
 <b>Next, --ctstate tells iptables to allow and track traffic for the types of connections that follow NEW,ESTABLISHED. Finally, iptables will interpret -j and whatever follows it as the action to perform when this rule is matched. This will generally be, ACCEPT to all traffic matching this rule; DROP, or REJECT, to deny or block the traffic; or LOG to log the traffic to a logfile.</b>
 
+---
+
+<h2>Configuring iptables</h2>
+
+<b>When configuring iptables, first add rules to drop invalid traffic. </b>
+<p align="center">
+<img src="  sudo iptables -A OUTPUT -m state --state INVALID -j DROP" height="25%" width="75%" />
+</p>
+<p align="center">
+<img src="  sudo iptables -A INPUT -m state --state INVALID -j DROP" height="25%" width="75%" />
+</p>
+
+<b>Then, add rules to accept traffic related to existing connections, as well as established connections and the loopback address to aviod any issues. 
+</b>
+<p align="center">
+<img src="  sudo iptables -A INPUT -m state --state RELATED, ESTABLISHED -j DROP" height="25%" width="75%" />
+</p>
+<p align="center">
+<img src="  sudo iptables -A OUTPUT -m state --state RELATED, ESTABLISHED -j DROP" height="25%" width="75%" />
+</p>
+<p align="center">
+<img src="  sudo iptables -A INPUT -i lo -j ACCEPT" height="25%" width="75%" />
+</p>
+
+<b>This allows the firewall to accept traffic matching a known connection or related to a connection in progress and discard any unexpected packets, keeping your network free from unsolicited or malicious network scanning activities.</b>
+
+
+
+
+
 
