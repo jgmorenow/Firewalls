@@ -2,7 +2,7 @@
 
 
 <h2>Description</h2>
-<b>Description: A firewall monitors and filters incoming and outgoing network traffic. There’s a misconception that the firewall is always the last line of defense but in reality, a perimeter firewall should be the first obstacle bad actors encounter when they try to penetrate any network.
+<b>A firewall monitors and filters incoming and outgoing network traffic. There’s a misconception that the firewall is always the last line of defense but in reality, a perimeter firewall should be the first obstacle bad actors encounter when they try to penetrate any network.
 
 In this project, I will use two firewall solutions: iptables and pfSense. Iptables is a common firewall often used as a host firewall in Linux. pfSense can be implemented either as an open source software firewall or as a hardware firewall, however in this project I will be using the open source software.
 </b>
