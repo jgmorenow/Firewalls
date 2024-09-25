@@ -53,13 +53,27 @@ I'll also need to save any changes to firewall rules manually beyond this instal
 If I don't install this component, I will have to reconfigure my firewall every time I restart my server.
 </b>
 
+---
+<b>Now let's go ahead and view our firewall rules. The command sudo iptables -L is used to list all the rules in the current IP tables on a Linux system. 
 
+In the output, policy ACCEPT indicates that, by default, iptables accepts all traffic for input, output, and forwarding. This default behavior is desirable since it works without any user configuration. However, this solution is insecure. 
+</b>
 
+---
+<h2>iptables Firewall Rules</h2>
 
+<b>We need to keep in mind that order matters, when it comes to creating iptables rules. As traffic reaches your firewall, iptables checks its rules one after the other in the order they appear. 
+</b>
 
+<b>To understand how to contrust an iptables firewall rule, let's take a look at the following example:</b>
 
+<p align="center">
+<img src="  sudo iptables -A INPUT -p tcp --dport 22 -m conntrack \ --ctstate NEW,EStABLISHED -j ACCEPT" height="25%" width="75%" />
+</p>
 
+<b>Immediately after sudo, iptables will begin the rule definition. The next argument determines whether the rule will be appended to (-A), deleted from (-D), or inserted into (-I) the specified policy chain. You can also specify (-R) to replace or update an existing rule. The INPUT indicates that a rule in the input chain is being modified. You can also specify OUTPUT, FORWARD, or other policy chains. In most cases, iptables needs to know the protocol and port to which the rules relate. In the example above, -p tcp indicates the rule will apply only to TCP traffic, and --dport 22 tells iptables that the rule applies to packets with a destination port of 22.</b> 
 
-
+<b>The iptables firewall offer multiple matching modules, and you can specify the module to use with the -m argument. In the example provided, conntrack, a tool that allows stateful packet inspection, is used. Some other tools include connbytes, which creates rules based on the amount of traffic transferred, and connrate, which matches *on the transfer rate of the traffic.</b>
+<b>Next, --ctstate tells iptables to allow and track traffic for the types of connections that follow NEW,ESTABLISHED. Finally, iptables will interpret -j and whatever follows it as the action to perform when this rule is matched. This will generally be, ACCEPT to all traffic matching this rule; DROP, or REJECT, to deny or block the traffic; or LOG to log the traffic to a logfile.</b>
 
 
