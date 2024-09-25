@@ -101,6 +101,28 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 </p>
 
 <b>This allows the firewall to accept traffic matching a known connection or related to a connection in progress and discard any unexpected packets, keeping your network free from unsolicited or malicious network scanning activities.</b>
+<b>Once these commands are run and rules are implemented to our policy chain, we can run the command to ruturn the list to ensure everything has been accepted:</b>
+<p align="center">
+<img src="  sudo iptables -L" height="25%" width="75%" />
+</p>
+
+<b>Now let's ensure that the firewall allows SSH traffic. We can do thi sin two ways: by broadly allowing SSH or by allowing SSH only from a subset of devices in my network. In this case I will allow SSH traffic originating from all devices in my network using the following command below:</b>
+<p align="center">
+<img src="  sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -j \ ACCEPT" height="25%" width="75%" />
+</p>
+
+<b>You should allow services like SSH only to and from specific IP addresses or ranges. Allowing remote access or file transfer between your endpoints and any other device is risky.</b>
+
+<b>You can reduce your attack surface by specifying a source IP address or range in your input chain with the -s source option. I'm configuring iptables on a virtual machine, so I will choose to allow connections from a single host for management purposes and deny access to all other endpoints. 
+<p align="center">
+<img src="  sudo iptables -A INPUT -p tcp -s 192.168.1.25 --dport 22 -m conntrack --ctstate NEW -j \ ACCEPT" height="25%" width="75%" />
+</p>
+
+<b>If we run into a mistake, we can delte all the rules we've specified for any of our policy chains by using the -F chain or --flush chain, parameter:</b>
+<p align="center">
+<img src="  sudo iptables -F INPUT" height="25%" width="75%" />
+</p>
+
 
 
 
