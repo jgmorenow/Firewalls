@@ -123,7 +123,7 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 <img src="https://i.imgur.com/sHLjr0x.png" height="25%" width="75%" />
 </p>
 
-<b>If we run into a mistake, we can delte all the rules we've specified for any of our policy chains by using the -F chain or --flush chain, parameter:</b>
+<b>If we run into a mistake, we can delete all the rules we've specified for any of our policy chains by using the -F chain or --flush chain, parameter:</b>
 
 
 
