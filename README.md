@@ -126,6 +126,62 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 <b>If we run into a mistake, we can delete all the rules we've specified for any of our policy chains by using the -F chain or --flush chain, parameter:</b>
 
 
+<b>Using the -P argument sets the default behavior of your policy chains and lets iptables know what to do with traffic that doesn't match your rules. I will set the behavior of my policy chain to DROP traffic. You will need to repeat the following for FORWARD AND OUTPUT</b>
+
+<p align="center">
+<img src="https://i.imgur.com/7h8QGfJ.png" height="25%" width="75%" />
+</p>
+
+<b>Now we will go ahead and check out iptables chain. We should notice the policy for all three chains has changed from ACCEPT to DROP, indicating the default behavior for each chain will drop traffic that doesn't match any of the rules created.</b>
+
+<p align="center">
+<img src="https://i.imgur.com/HeaqD2g.png" height="25%" width="75%" />
+</p>
+
+<b>Receving an error message indicating DNS failing is noraml, because the firewall is now blocking everything not explicitly allowed. This issue is resolved by the following rules.</b>
+
+<p align="center">
+<img src="https://i.imgur.com/IZTvx2i.png" height="25%" width="75%" />
+</p>
+
+<b>These commands append rules to the output chain, allowing the server to make outbound requests for domain name resolution on UDP and TCP port 53.</b>
+
+<b>ICMP can be a useful troubleshooting tool that we may use so we will need to allow ping through the iptables firewall.</b>
+
+<p align="center">
+<img src="https://i.imgur.com/PgHioFF.png" height="25%" width="75%" />
+</p>
+
+<b>Now that the iptables firewall is install and configured, we should tell it to log and produce records of traffic. Without logging, it will make troubleshooting issues difficult. </b>
+
+<b>Let's create a new, custom policy chain. I'll name it LOGGING. The -N parameter is used to create new chains. Next, add a rule at the end of each of the INPUT and OUTPUT chains that tells iptables to send any traffic that hasn't yet matched a rule to the new LOGGING chain:</b>
+
+<p align="center">
+<img src="  sudo iptables -A INPUT / OUTPUT -j LOGGING" height="25%" width="75%" />
+</p>
+
+<b>Then, tell iptables to log only once per minute for each type of dropped packet:</b>
+
+<p align="center">
+<img src="   sudo iptables -A LOGGING -m limit --limit 1/minute -j LOG \ --log-prefix "FW-Dropped: " --log-level 4" height="25%" width="75%" />
+</p>
+
+<b>This limit is optional, and you can set it to any period, such as 1/second, 1/minute, 1/hour, or 1/day. Limiting the number of log entries reduces both the noise within and the size of the logfiles.
+
+
+<b>Finally, the last command indicates to the firewall that, once logged, it can drop the packets.</b>
+
+<p align="center">
+<img src=" sudo iptables -A LOGGING -j DROP  " height="25%" width="75%" />
+</p>
+
+<b>iptables firewall is now configured for logging. Now that we are finished, we need to remember to save our configurations. We will do this by running the following command:</b> 
+
+<p align="center">
+<img src=" sudo netfilter-persistent save " height="25%" width="75%" />
+</p>
+
+
 
 
 
