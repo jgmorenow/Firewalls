@@ -152,6 +152,9 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 <img src="https://i.imgur.com/PgHioFF.png" height="25%" width="75%" />
 </p>
 
+
+<h2>Logging iptables Behavior</h2>
+
 <b>Now that the iptables firewall is install and configured, we should tell it to log and produce records of traffic. Without logging, it will make troubleshooting issues difficult. </b>
 
 <b>Let's create a new, custom policy chain. I'll name it LOGGING. The -N parameter is used to create new chains. Next, add a rule at the end of each of the INPUT and OUTPUT chains that tells iptables to send any traffic that hasn't yet matched a rule to the new LOGGING chain:</b>
