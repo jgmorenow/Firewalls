@@ -68,7 +68,7 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 <b>To understand how to contrust an iptables firewall rule, let's take a look at the following example:</b>
 
 <p align="center">
-<img src="  sudo iptables -A INPUT -p tcp --dport 22 -m conntrack \ --ctstate NEW,EStABLISHED -j ACCEPT" height="25%" width="75%" />
+<img src="https://i.imgur.com/WxoT4dt.png" height="25%" width="75%" />
 </p>
 
 <b>Immediately after sudo, iptables will begin the rule definition. The next argument determines whether the rule will be appended to (-A), deleted from (-D), or inserted into (-I) the specified policy chain. You can also specify (-R) to replace or update an existing rule. The INPUT indicates that a rule in the input chain is being modified. You can also specify OUTPUT, FORWARD, or other policy chains. In most cases, iptables needs to know the protocol and port to which the rules relate. In the example above, -p tcp indicates the rule will apply only to TCP traffic, and --dport 22 tells iptables that the rule applies to packets with a destination port of 22.</b> 
@@ -82,46 +82,49 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 
 <b>When configuring iptables, first add rules to drop invalid traffic. </b>
 <p align="center">
-<img src="  sudo iptables -A OUTPUT -m state --state INVALID -j DROP" height="25%" width="75%" />
+<img src="https://i.imgur.com/IR1nMGE.png" height="25%" width="75%" />
 </p>
 <p align="center">
-<img src="  sudo iptables -A INPUT -m state --state INVALID -j DROP" height="25%" width="75%" />
+<img src="https://i.imgur.com/IvpUFD4.png" height="25%" width="75%" />
 </p>
 
 <b>Then, add rules to accept traffic related to existing connections, as well as established connections and the loopback address to aviod any issues. 
 </b>
+
 <p align="center">
-<img src="  sudo iptables -A INPUT -m state --state RELATED, ESTABLISHED -j DROP" height="25%" width="75%" />
+  <img src="https://i.imgur.com/ESNl8IM.png" height="25%" width="75%" />
 </p>
 <p align="center">
-<img src="  sudo iptables -A OUTPUT -m state --state RELATED, ESTABLISHED -j DROP" height="25%" width="75%" />
+  <img src="https://i.imgur.com/K2mCWV4.png" height="25%" width="75%" />
 </p>
 <p align="center">
-<img src="  sudo iptables -A INPUT -i lo -j ACCEPT" height="25%" width="75%" />
+  <img src="https://i.imgur.com/mqKZTZ3.png" height="25%" width="75%" />
 </p>
+
 
 <b>This allows the firewall to accept traffic matching a known connection or related to a connection in progress and discard any unexpected packets, keeping your network free from unsolicited or malicious network scanning activities.</b>
 <b>Once these commands are run and rules are implemented to our policy chain, we can run the command to ruturn the list to ensure everything has been accepted:</b>
+
 <p align="center">
-<img src="  sudo iptables -L" height="25%" width="75%" />
+<img src="https://i.imgur.com/A6gLYsN.png" height="25%" width="75%" />
 </p>
 
 <b>Now let's ensure that the firewall allows SSH traffic. We can do thi sin two ways: by broadly allowing SSH or by allowing SSH only from a subset of devices in my network. In this case I will allow SSH traffic originating from all devices in my network using the following command below:</b>
+
 <p align="center">
-<img src="  sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -j \ ACCEPT" height="25%" width="75%" />
+<img src="https://i.imgur.com/sHLjr0x.png" height="25%" width="75%" />
 </p>
 
 <b>You should allow services like SSH only to and from specific IP addresses or ranges. Allowing remote access or file transfer between your endpoints and any other device is risky.</b>
 
-<b>You can reduce your attack surface by specifying a source IP address or range in your input chain with the -s source option. I'm configuring iptables on a virtual machine, so I will choose to allow connections from a single host for management purposes and deny access to all other endpoints. 
+<b>You can reduce your attack surface by specifying a source IP address or range in your input chain with the -s source option. I'm configuring iptables on a virtual machine, so I will choose to allow connections from a single host for management purposes and deny access to all other endpoints. </b>
+
 <p align="center">
-<img src="  sudo iptables -A INPUT -p tcp -s 192.168.1.25 --dport 22 -m conntrack --ctstate NEW -j \ ACCEPT" height="25%" width="75%" />
+<img src="https://i.imgur.com/sHLjr0x.png" height="25%" width="75%" />
 </p>
 
 <b>If we run into a mistake, we can delte all the rules we've specified for any of our policy chains by using the -F chain or --flush chain, parameter:</b>
-<p align="center">
-<img src="  sudo iptables -F INPUT" height="25%" width="75%" />
-</p>
+
 
 
 
