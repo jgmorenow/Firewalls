@@ -27,7 +27,7 @@ In this project, I will use two firewall solutions: iptables and pfSense. Iptabl
 
 <h2>Installing iptables</h2>
 
-<b>I've already built a standard Ubuntu server, so now I can start configuring its iptable firewall.
+<b>I've already built a standard Ubuntu server, so now I can start configuring its iptables firewall.
 
 Recent Ubuntu systems have iptables installed by default but we can always check by running the following command:
 </b>
