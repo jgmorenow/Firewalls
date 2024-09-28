@@ -160,13 +160,13 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 <b>Let's create a new, custom policy chain. I'll name it LOGGING. The -N parameter is used to create new chains. Next, add a rule at the end of each of the INPUT and OUTPUT chains that tells iptables to send any traffic that hasn't yet matched a rule to the new LOGGING chain:</b>
 
 <p align="center">
-<img src="  sudo iptables -A INPUT / OUTPUT -j LOGGING" height="25%" width="75%" />
+<img src="https://i.imgur.com/qgBtdW9.png" height="25%" width="75%" />
 </p>
 
 <b>Then, tell iptables to log only once per minute for each type of dropped packet:</b>
 
 <p align="center">
-<img src="   sudo iptables -A LOGGING -m limit --limit 1/minute -j LOG \ --log-prefix "FW-Dropped: " --log-level 4" height="25%" width="75%" />
+<img src="https://i.imgur.com/EoAGFxE.png" height="25%" width="75%" />
 </p>
 
 <b>This limit is optional, and you can set it to any period, such as 1/second, 1/minute, 1/hour, or 1/day. Limiting the number of log entries reduces both the noise within and the size of the logfiles.
@@ -175,13 +175,13 @@ In the output, policy ACCEPT indicates that, by default, iptables accepts all tr
 <b>Finally, the last command indicates to the firewall that, once logged, it can drop the packets.</b>
 
 <p align="center">
-<img src=" sudo iptables -A LOGGING -j DROP  " height="25%" width="75%" />
+<img src="https://i.imgur.com/6KQMsIR.png" height="25%" width="75%" />
 </p>
 
 <b>iptables firewall is now configured for logging. Now that we are finished, we need to remember to save our configurations. We will do this by running the following command:</b> 
 
 <p align="center">
-<img src=" sudo netfilter-persistent save " height="25%" width="75%" />
+<img src="https://i.imgur.com/5sayZST.png" height="25%" width="75%" />
 </p>
 
 
